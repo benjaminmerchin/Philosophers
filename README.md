@@ -2,6 +2,7 @@
 The Dining Philosopher Problem
 
 <!--
+SUJET
 Des philo autour d'une table : Mangent / Dorment / Pensent
 Une seule action a la fois.
 Les philo doivent manger avec deux fourchettes (une dans chaque main)
@@ -22,17 +23,19 @@ Objectif, moins de 10ms de delta avec le vrai temps.
 -->
 
 <!--
-USLEEP : mets en pause le thread
+FONCTIONS
+USLEEP : mets en pause le thread, mais pas le gettimeofday
 usleep, en 0.000001
 le reste en 0.001, soit un facteur 1000
-
-
 -->
 
-
+<!--
+IDEES OPTI
+Penser a utiliser un gros buffer par ligne pour economiser de la puissance
+-->
 
 <!--
-SHORTCUT
+NEW SHORTCUT
 ctrl - pour retourner a la derniere modif
 ctrl shift - revenir
 -->

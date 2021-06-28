@@ -26,21 +26,31 @@ void	secure_values(t_a *a)
 		exit (ft_putstr_ret_0("Error: Negative value\n"));
 }
 
+int	get_time_ms(t_a *a)
+{
+	int time;
+	struct timeval t;
+
+	gettimeofday(&t, NULL);
+	time = (t.tv_sec - a->start_sec) * 1000 + (t.tv_usec - a->start_usec) / 1000;
+	return (time);
+}
+
+
 int main(int ac, char **av)
 {
 	t_a a;
 	struct timeval t;
 	
-	gettimeofday(&t, NULL);
-	printf("%ld\n", t.tv_sec);
-	printf("%d\n", t.tv_usec);
-
 	if (ac != 5 && ac != 6)
 		return (ft_putstr_ret_0("Error: wrong number of arguments\n"));
 	fill_struct(&a, ac, av);
 	secure_values(&a);
+	gettimeofday(&t, NULL);
+	a.start_sec = t.tv_sec;
+	a.start_usec = t.tv_usec;
 
-	//a.start = gettimeofday(&t, NULL) - a.start;
-	//ft_putnbr_bn(gettimeofday(&t, NULL));
+
+	ft_putnbr_bn(get_time_ms(&a));
 	return (0);
 }

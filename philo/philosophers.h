@@ -16,7 +16,9 @@ typedef struct s_a {
 	int	num_eat; //optionnal
 	int limit_num_eat;
 
-	int	start;
+	time_t	start_sec; //ld
+	suseconds_t start_usec; //d
+	long unsigned int	start_usec_ms;
 	int	end;
 } t_a;
 

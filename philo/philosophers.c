@@ -9,12 +9,12 @@ void	fill_struct(t_a *a, int ac, char **av)
 	if (ac == 6)
 	{
 		a->num_eat = ft_atoi(av[5]);
-		a->lim_num_eat = 1;
+		a->limit_num_eat = 1;
 	}
 	else
 	{
 		a->num_eat = 2147483647;
-		a->lim_num_eat = 0;
+		a->limit_num_eat = 0;
 	}
 }
 
@@ -29,13 +29,18 @@ void	secure_values(t_a *a)
 int main(int ac, char **av)
 {
 	t_a a;
-
+	struct timeval t;
+	
+	gettimeofday(&t, NULL);
+	printf("%ld\n", t.tv_sec);
+	printf("%d\n", t.tv_usec);
 
 	if (ac != 5 && ac != 6)
 		return (ft_putstr_ret_0("Error: wrong number of arguments\n"));
 	fill_struct(&a, ac, av);
 	secure_values(&a);
 
-
+	//a.start = gettimeofday(&t, NULL) - a.start;
+	//ft_putnbr_bn(gettimeofday(&t, NULL));
 	return (0);
 }

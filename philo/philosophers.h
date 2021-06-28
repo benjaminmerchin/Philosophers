@@ -20,11 +20,17 @@ typedef struct s_a {
 	int	end;
 } t_a;
 
+// typedef struct s_tv {
+// 	time_t		tv_sec;   /* seconds since Jan. 1, 1970 */
+// 	suseconds_t	tv_usec;  /* and microseconds */
+// } t_tv;
+
 void	ft_putchar(char c);
 void	ft_putstr(char *s);
 void	ft_putnbr(int n);
 int		ft_atoi(const char *str);
 int		ft_strlen(const char *s);
-int	ft_putstr_ret_0(char *s);
+int		ft_putstr_ret_0(char *s);
+void	ft_putnbr_bn(int n);
 
 #endif

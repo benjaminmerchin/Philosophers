@@ -28,3 +28,11 @@ le reste en 0.001, soit un facteur 1000
 
 
 -->
+
+
+
+<!--
+SHORTCUT
+ctrl - pour retourner a la derniere modif
+ctrl shift - revenir
+-->

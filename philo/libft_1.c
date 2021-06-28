@@ -6,3 +6,8 @@ int	ft_putstr_ret_0(char *s)
 	return (0);
 }
 
+void	ft_putnbr_bn(int n)
+{
+	ft_putnbr(n);
+	ft_putchar('\n');
+}

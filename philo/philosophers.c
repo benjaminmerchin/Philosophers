@@ -85,11 +85,13 @@ void	*count_to_big(void *arg)
 
 void	*philo_life(void *arg)
 {
+	t_philo *philo;
 	t_a *a;
 
-	a = (t_a *)arg;
-	ft_putnbr_bn(a->start_usec);
-	(void)arg;
+	philo = (t_philo *)arg;
+	a = (t_a *)philo->ptr;
+	ft_putnbr_buff_hq(philo, a->start_usec);
+	
 	return (NULL);
 }
 
@@ -118,13 +120,16 @@ int main(int ac, char **av)
 	i = 0;
 	while (i < a.num_philo)
 	{
-		a.buff[i][0] = '\0';
+		a.philo[i].buff[0] = '\0';
+		a.philo[i].cursor = 0;
+		a.philo[i].id = i;
+		a.philo[i].ptr = &a;
 		a.philo[i].my_right_fork = &fork[i];
 		if (i != a.num_philo - 1)
 			a.philo[i].my_right_fork = &fork[i + 1];
 		else
 			a.philo[i].my_right_fork = &fork[0];
-		pthread_create(&newthread[i], NULL, philo_life, &a);
+		pthread_create(&newthread[i], NULL, philo_life, &a.philo[i]);
 		i++;
 	}
 
@@ -135,9 +140,6 @@ int main(int ac, char **av)
 	}
 
 
-
-
-
 	//count_to_big(NULL);
 	i = 0;
 	while (i < a.num_philo)
@@ -146,7 +148,6 @@ int main(int ac, char **av)
 		i++;
 	}
 	//my_turn();
-
 
 
 	//ft_putnbr_bn(get_time_ms(&a));

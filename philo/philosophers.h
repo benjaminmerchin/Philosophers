@@ -12,6 +12,9 @@ typedef struct s_philo {
 	int id;
 	pthread_mutex_t *my_right_fork;
 	pthread_mutex_t *left_fork;
+	char	buff[100];
+	int		cursor;
+	void	*ptr;
 }	t_philo;
 
 typedef struct s_a {
@@ -29,7 +32,6 @@ typedef struct s_a {
 	int	end;
 
 	t_philo philo[200];
-	char	buff[200][100];
 } t_a;
 
 // typedef struct s_tv {
@@ -44,5 +46,6 @@ int		ft_atoi(const char *str);
 int		ft_strlen(const char *s);
 int		ft_putstr_ret_0(char *s);
 void	ft_putnbr_bn(int n);
+void	ft_putnbr_buff_hq(t_philo *philo, int nbr);
 
 #endif

@@ -7,6 +7,7 @@ void	init_time(t_a *a)
 	gettimeofday(&t, NULL);
 	a->start_sec = t.tv_sec;
 	a->start_usec = t.tv_usec;
+	a->start_usec_ms = a->start_sec * 1000 + a->start_usec / 1000;
 }
 
 void	fill_struct(t_a *a, int ac, char **av)
@@ -41,8 +42,22 @@ int	get_time_ms(t_a *a)
 	struct timeval t;
 
 	gettimeofday(&t, NULL);
-	time = (t.tv_sec - a->start_sec) * 1000 + (t.tv_usec - a->start_usec) / 1000;
+	time = t.tv_sec * 1000 + t.tv_usec / 1000 - a->start_usec_ms;
 	return (time);
+}
+
+void	doing_something_for(t_a *a, int time_ms)
+{
+	int start;
+	int current;
+
+	start = get_time_ms(a);
+	current = start;
+	while (current < start + time_ms)
+	{
+		usleep(100); // trop chelou mais conseillé
+		current = get_time_ms(a);
+	}
 }
 
 void	my_turn()
@@ -87,11 +102,27 @@ void	*philo_life(void *arg)
 {
 	t_philo *philo;
 	t_a *a;
+	int i;
 
+	i = 0;
 	philo = (t_philo *)arg;
 	a = (t_a *)philo->ptr;
 	ft_putnbr_buff_hq(philo, a->start_usec);
-	
+	while (i < a->num_eat || !a->limit_num_eat) //inferieur aux iterations
+	{ //rajouter les messages ici
+		//recupere les 2 fourchettes
+		pthread_mutex_lock(philo->my_right_fork);
+		pthread_mutex_lock(philo->left_fork);
+
+		doing_something_for(a, a->time_eat);
+
+		//libere les 2 fourchettes
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->my_right_fork);
+
+		doing_something_for(a, a->time_sleep);
+		i++;
+	}
 	return (NULL);
 }
 
@@ -135,6 +166,7 @@ int main(int ac, char **av)
 
 	while (a.everyone_alive == 1)
 	{
+// Se balader sur tous les philo et verif qu'ils sont dans le time
 //		how_is_everyone_doing(&a);
 		a.everyone_alive = 0;
 	}

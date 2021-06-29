@@ -23,7 +23,7 @@ typedef struct s_a {
 	int	time_eat; //need two fork the whole time
 	int time_sleep;
 	int	num_eat; //optionnal
-	int limit_num_eat;
+	int limit_num_eat; // 0 (no limit) or 1
 	int everyone_alive;
 
 	time_t	start_sec; //ld

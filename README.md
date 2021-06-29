@@ -54,6 +54,7 @@ ctrl shift - revenir
 <!--
 WARNINGS
 Attention aux variables qui peuvent etre manipules dans plusieurs threads en parallele
+Faire des usleep(100) un peu partout pour fluidifier le programme (ca a debloquer beaucoup de personnes)
 
 NOTIONS
 >Rendre les threads Atomic avec les mutex pour qu'ils s'executent proprement sans interferences avec ds variables utiliser en parallele

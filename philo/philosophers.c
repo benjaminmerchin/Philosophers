@@ -74,7 +74,7 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 void	*count_to_big(void *arg)
 {
 	(void)arg;
-	for (int i = 0; i < 1000000; i++)
+	for (int i = 0; i < 200000; i++)
 	{
 		pthread_mutex_lock(&lock);
 		counter++;
@@ -83,23 +83,68 @@ void	*count_to_big(void *arg)
 	return (NULL);
 }
 
+void	*philo_life(void *arg)
+{
+	t_a *a;
+
+	a = (t_a *)arg;
+	ft_putnbr_bn(a->start_usec);
+	(void)arg;
+	return (NULL);
+}
+
 int main(int ac, char **av)
 {
 	t_a a;
-	
+	int i;
+
 	if (ac != 5 && ac != 6)
 		return (ft_putstr_ret_0("Error: wrong number of arguments\n"));
 	fill_struct(&a, ac, av);
 	secure_values(&a);
 	init_time(&a);
+	a.everyone_alive = 1;
 
-	//int i = 6;
-	
-	pthread_t newthread;
-	pthread_create(&newthread, NULL, count_to_big, NULL);
-	count_to_big(NULL);
+	pthread_t newthread[200];
 
-	pthread_join(newthread, NULL);
+	i = 0;
+	pthread_mutex_t fork[200];
+	while (i < a.num_philo)
+	{
+		pthread_mutex_init(&fork[i], NULL);
+		i++;
+	}
+
+	i = 0;
+	while (i < a.num_philo)
+	{
+		a.buff[i][0] = '\0';
+		a.philo[i].my_right_fork = &fork[i];
+		if (i != a.num_philo - 1)
+			a.philo[i].my_right_fork = &fork[i + 1];
+		else
+			a.philo[i].my_right_fork = &fork[0];
+		pthread_create(&newthread[i], NULL, philo_life, &a);
+		i++;
+	}
+
+	while (a.everyone_alive == 1)
+	{
+//		how_is_everyone_doing(&a);
+		a.everyone_alive = 0;
+	}
+
+
+
+
+
+	//count_to_big(NULL);
+	i = 0;
+	while (i < a.num_philo)
+	{
+		pthread_join(newthread[i], NULL);
+		i++;
+	}
 	//my_turn();
 
 

@@ -9,5 +9,5 @@ int	ft_putstr_ret_0(char *s)
 void	ft_putnbr_bn(int n)
 {
 	ft_putnbr(n);
-	ft_putchar('\n');
+	write(1, "\n", 1);
 }

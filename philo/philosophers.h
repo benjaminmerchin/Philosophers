@@ -8,6 +8,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef struct s_philo {
+	int id;
+	pthread_mutex_t *my_right_fork;
+	pthread_mutex_t *left_fork;
+}	t_philo;
+
 typedef struct s_a {
 	int	num_philo; //num philo & fork
 	int time_die; //temps que le philo a apres le debut du prog, ou le debut de son dernier repas avant de mourrir
@@ -15,20 +21,16 @@ typedef struct s_a {
 	int time_sleep;
 	int	num_eat; //optionnal
 	int limit_num_eat;
+	int everyone_alive;
 
 	time_t	start_sec; //ld
 	suseconds_t start_usec; //d
 	long unsigned int	start_usec_ms;
 	int	end;
+
+	t_philo philo[200];
+	char	buff[200][100];
 } t_a;
-
-typedef volatile struct s_fork {
-	int id;
-}	t_fork;
-
-typedef struct s_philo {
-	int id;
-}	t_philo;
 
 // typedef struct s_tv {
 // 	time_t		tv_sec;   /* seconds since Jan. 1, 1970 */

@@ -6,7 +6,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
-
+# include <pthread.h>
 
 typedef struct s_a {
 	int	num_philo; //num philo & fork
@@ -21,6 +21,14 @@ typedef struct s_a {
 	long unsigned int	start_usec_ms;
 	int	end;
 } t_a;
+
+typedef volatile struct s_fork {
+	int id;
+}	t_fork;
+
+typedef struct s_philo {
+	int id;
+}	t_philo;
 
 // typedef struct s_tv {
 // 	time_t		tv_sec;   /* seconds since Jan. 1, 1970 */

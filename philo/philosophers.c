@@ -1,5 +1,14 @@
 #include "philosophers.h"
 
+void	init_time(t_a *a)
+{
+	struct timeval t;
+
+	gettimeofday(&t, NULL);
+	a->start_sec = t.tv_sec;
+	a->start_usec = t.tv_usec;
+}
+
 void	fill_struct(t_a *a, int ac, char **av)
 {
 	a->num_philo = ft_atoi(av[1]);
@@ -36,21 +45,67 @@ int	get_time_ms(t_a *a)
 	return (time);
 }
 
+void	my_turn()
+{
+	while (1)
+	{
+		sleep (1);
+		printf("My turn\n");
+	}
+}
+
+void	*your_turn(void *arg)
+{
+	int *i = (int *)arg;
+	while (1)
+	{
+		sleep (1);
+		printf("Your turn %d\n", *i);
+		(*i)++;
+	}
+	return (NULL);
+}
+
+int counter;
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+//pthread_mutex_t lock;
+//pthread_mutex_init(&lock, NULL);
+
+void	*count_to_big(void *arg)
+{
+	(void)arg;
+	for (int i = 0; i < 1000000; i++)
+	{
+		pthread_mutex_lock(&lock);
+		counter++;
+		pthread_mutex_unlock(&lock);
+	}
+	return (NULL);
+}
 
 int main(int ac, char **av)
 {
 	t_a a;
-	struct timeval t;
 	
 	if (ac != 5 && ac != 6)
 		return (ft_putstr_ret_0("Error: wrong number of arguments\n"));
 	fill_struct(&a, ac, av);
 	secure_values(&a);
-	gettimeofday(&t, NULL);
-	a.start_sec = t.tv_sec;
-	a.start_usec = t.tv_usec;
+	init_time(&a);
+
+	//int i = 6;
+	
+	pthread_t newthread;
+	pthread_create(&newthread, NULL, count_to_big, NULL);
+	count_to_big(NULL);
+
+	pthread_join(newthread, NULL);
+	//my_turn();
 
 
-	ft_putnbr_bn(get_time_ms(&a));
+
+	//ft_putnbr_bn(get_time_ms(&a));
+	//pthread_join(&newthread, NULL);
+	printf("%d\n", counter);
 	return (0);
 }

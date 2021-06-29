@@ -27,6 +27,17 @@ FONCTIONS
 USLEEP : mets en pause le thread, mais pas le gettimeofday
 usleep, en 0.000001
 le reste en 0.001, soit un facteur 1000
+
+THREAD
+pthread_create // cree le thread
+pthread_join // attent poliement que le thread finisse et peut retourner un ptr de valeur exit du de la fonction du thread
+pthread_detach // askip ne sert pas
+
+Des Mutex pour temporiser les thread
+pthread_mutex_init,
+pthread_mutex_lock,
+pthread_mutex_destroy, 
+pthread_mutex_unlock
 -->
 
 <!--
@@ -38,4 +49,14 @@ Penser a utiliser un gros buffer par ligne pour economiser de la puissance
 NEW SHORTCUT
 ctrl - pour retourner a la derniere modif
 ctrl shift - revenir
+-->
+
+<!--
+WARNINGS
+Attention aux variables qui peuvent etre manipules dans plusieurs threads en parallele
+
+NOTIONS
+>Rendre les threads Atomic avec les mutex pour qu'ils s'executent proprement sans interferences avec ds variables utiliser en parallele
+>L'utilisation de mutex augmente considerablement le temps de compilation, privilegier les thread lorsque les operations ne se chevauchent pas
+>L'utilisation de variables volatiles peut eviter au code de faire de mauvais raccourcis lors d'optimisations du compilateur
 -->

@@ -61,3 +61,15 @@ NOTIONS
 >L'utilisation de mutex augmente considerablement le temps de compilation, privilegier les thread lorsque les operations ne se chevauchent pas
 >L'utilisation de variables volatiles peut eviter au code de faire de mauvais raccourcis lors d'optimisations du compilateur
 -->
+
+<!--
+Feedback Correction
+enlever exit et mettre un return 
+everyone alive a 0 au dessus du return OK
+
+philosophers ligne 30 check que tout le monde est alive OK
+
+lancer les pairs, mettre du delais et ensuite les impaires OK
+
+les philos qui commencent a 1 (+ 1 dans l'affichage) OK
+-->

@@ -17,7 +17,6 @@ typedef struct s_philo {
 	void			*ptr;
 	int				last_eat;
 	int				cycles;
-	int				finished;
 }	t_philo;
 
 typedef struct s_a {
@@ -27,16 +26,17 @@ typedef struct s_a {
 	int					time_sleep;
 	int					num_eat;
 	int					limit_num_eat;
-	int					everyone_alive;
+	int					all_alive;
 
 	time_t				start_sec;
 	suseconds_t			start_usec;
 	long unsigned int	start_usec_ms;
-	int					end;
+	int					error;
+	int					finished;
 
 	t_philo				philo[200];
-
-	int					finished;
+	pthread_mutex_t		m_finished;
+	pthread_mutex_t		m_write;
 }	t_a;
 
 void	ft_putchar(char c);

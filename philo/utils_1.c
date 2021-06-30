@@ -35,13 +35,13 @@ void	secure_values(t_a *a)
 	if (a->num_philo > 200)
 	{
 		ret = ft_putstr_ret_0("Error: Danger: too many philosophers\n");
-		exit(ret);
+		a->error = 1;
 	}
 	if (a->num_philo < 0 || a->time_die < 0
 		|| a->time_eat < 0 || a->time_sleep < 0 || a->num_eat < 0)
 	{
 		ret = ft_putstr_ret_0("Error: Negative value\n");
-		exit (ret);
+		a->error = 1;
 	}
 }
 

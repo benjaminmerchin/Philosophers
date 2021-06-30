@@ -47,7 +47,7 @@ void	print_action_buffer(t_philo *philo, t_a *a, char *str)
 {
 	ft_putnbr_buff(philo, get_time_ms(a));
 	ft_putstr_buff(philo, "ms ");
-	ft_putnbr_buff(philo, philo->id);
+	ft_putnbr_buff(philo, philo->id + 1);
 	ft_putstr_buff(philo, str);
 	ft_putchar_buff(philo, '\n');
 	philo->buff[philo->cursor] = '\0';

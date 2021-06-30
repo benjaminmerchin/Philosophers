@@ -9,41 +9,35 @@
 # include <pthread.h>
 
 typedef struct s_philo {
-	int id;
-	pthread_mutex_t *my_right_fork;
-	pthread_mutex_t *left_fork;
-	char	buff[100];
-	int		cursor;
-	void	*ptr;
-	int		last_eat;
-	int		cycles;
-	int		finished;
+	int				id;
+	pthread_mutex_t	*my_right_fork;
+	pthread_mutex_t	*left_fork;
+	char			buff[100];
+	int				cursor;
+	void			*ptr;
+	int				last_eat;
+	int				cycles;
+	int				finished;
 }	t_philo;
 
 typedef struct s_a {
-	int	num_philo; //num philo & fork
-	int time_die; //temps que le philo a apres le debut du prog, ou le debut de son dernier repas avant de mourrir
-	int	time_eat; //need two fork the whole time
-	int time_sleep;
-	int	num_eat; //optionnal
-	int limit_num_eat; // 0 (no limit) or 1
-	int everyone_alive;
+	int					num_philo;
+	int					time_die;
+	int					time_eat;
+	int					time_sleep;
+	int					num_eat;
+	int					limit_num_eat;
+	int					everyone_alive;
 
-	time_t	start_sec; //ld
-	suseconds_t start_usec; //d
+	time_t				start_sec;
+	suseconds_t			start_usec;
 	long unsigned int	start_usec_ms;
-	int	end;
+	int					end;
 
-	t_philo philo[200];
+	t_philo				philo[200];
 
-	int	counter;//retirer
-	int	finished;
-} t_a;
-
-// typedef struct s_tv {
-// 	time_t		tv_sec;   /* seconds since Jan. 1, 1970 */
-// 	suseconds_t	tv_usec;  /* and microseconds */
-// } t_tv;
+	int					finished;
+}	t_a;
 
 void	ft_putchar(char c);
 void	ft_putstr(char *s);
@@ -54,10 +48,13 @@ int		ft_putstr_ret_0(char *s);
 void	ft_putnbr_bn(int n);
 void	ft_putnbr_buff_hq(t_philo *philo, int nbr);
 
-
-
 void	print_action_buffer(t_philo *philo, t_a *a, char *str);
-int	get_time_ms(t_a *a);
+int		get_time_ms(t_a *a);
 
+void	init_time(t_a *a);
+void	fill_struct(t_a *a, int ac, char **av);
+void	secure_values(t_a *a);
+int		get_time_ms(t_a *a);
+void	doing_something_for(t_a *a, int time_ms);
 
 #endif

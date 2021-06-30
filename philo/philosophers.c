@@ -98,20 +98,22 @@ void	*count_to_big(void *arg)
 	return (NULL);
 }
 
-/*int		how_is_everyone_doing(t_a *a)
+int		how_is_everyone_doing(t_a *a)
 {
 	int i;
+	int	time;
 
 	i = 0;
+	time = get_time_ms(a);
 	while (i < a->num_philo)
 	{
-		if (a->philo[i]->last_eat < )
+		if (a->philo[i]->last_eat < time + a->time_eat)
 		{
-			a->everyone_aive = 0;
+			a->everyone_alive = 0;
 		}
 		i++;
 	}
-}*/
+}
 
 void	*philo_life(void *arg)
 {

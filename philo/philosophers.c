@@ -50,7 +50,7 @@ void	*philo_life(void *arg)
 
 void	init_philo(t_a *a, int i)
 {
-	usleep(100);
+	usleep(300);
 	a->philo[i].buff[0] = '\0';
 	a->philo[i].cursor = 0;
 	a->philo[i].id = i;

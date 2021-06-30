@@ -1,2 +1,5 @@
 philo/philo
+.DS_Store
+philo/.DS_Store
 philo/objects/*.o
+philo/objects/.DS_Store

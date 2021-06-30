@@ -98,30 +98,52 @@ void	*count_to_big(void *arg)
 	return (NULL);
 }
 
+/*int		how_is_everyone_doing(t_a *a)
+{
+	int i;
+
+	i = 0;
+	while (i < a->num_philo)
+	{
+		if (a->philo[i]->last_eat < )
+		{
+			a->everyone_aive = 0;
+		}
+		i++;
+	}
+}*/
+
 void	*philo_life(void *arg)
 {
 	t_philo *philo;
 	t_a *a;
-	int i;
 
-	i = 0;
 	philo = (t_philo *)arg;
 	a = (t_a *)philo->ptr;
-	ft_putnbr_buff_hq(philo, a->start_usec);
-	while (i < a->num_eat || !a->limit_num_eat) //inferieur aux iterations
+	philo->cycles = 0;
+	//ft_putnbr_buff_hq(philo, a->start_usec);
+	while (philo->cycles < a->num_eat || !a->limit_num_eat) //inferieur aux iterations
 	{ //rajouter les messages ici
+		usleep(100);
 		//recupere les 2 fourchettes
 		pthread_mutex_lock(philo->my_right_fork);
+		print_action_buffer(philo, a, " has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
 
+		philo->last_eat = get_time_ms(a);
+		print_action_buffer(philo, a, " is eating");
 		doing_something_for(a, a->time_eat);
 
 		//libere les 2 fourchettes
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->my_right_fork);
 
+		print_action_buffer(philo, a, " is sleaping");
 		doing_something_for(a, a->time_sleep);
-		i++;
+
+		print_action_buffer(philo, a, " is thinking");
+		doing_something_for(a, a->time_sleep);
+		(philo->cycles)++;
 	}
 	return (NULL);
 }
@@ -151,15 +173,17 @@ int main(int ac, char **av)
 	i = 0;
 	while (i < a.num_philo)
 	{
+		usleep(100);
 		a.philo[i].buff[0] = '\0';
 		a.philo[i].cursor = 0;
 		a.philo[i].id = i;
+		a.philo[i].last_eat = 0;
 		a.philo[i].ptr = &a;
 		a.philo[i].my_right_fork = &fork[i];
 		if (i != a.num_philo - 1)
-			a.philo[i].my_right_fork = &fork[i + 1];
+			a.philo[i].left_fork = &fork[i + 1];
 		else
-			a.philo[i].my_right_fork = &fork[0];
+			a.philo[i].left_fork = &fork[0];
 		pthread_create(&newthread[i], NULL, philo_life, &a.philo[i]);
 		i++;
 	}
@@ -184,6 +208,6 @@ int main(int ac, char **av)
 
 	//ft_putnbr_bn(get_time_ms(&a));
 	//pthread_join(&newthread, NULL);
-	printf("%d\n", counter);
+	//printf("%d\n", counter);
 	return (0);
 }

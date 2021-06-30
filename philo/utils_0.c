@@ -1,15 +1,18 @@
 #include "philosophers.h"
 
-// void	add_buff(char c, t_a *a, int id)
-// {
-// 	int i;
-
-// }
-
 void	ft_putchar_buff(t_philo *philo, char c)
 {
 	philo->buff[philo->cursor] = c;
 	philo->cursor++;
+}
+
+void	ft_putstr_buff(t_philo *philo, char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		ft_putchar_buff(philo, str[i++]);
 }
 
 void	ft_putnbr_buff(t_philo *philo, int n)
@@ -34,6 +37,18 @@ void	ft_putnbr_buff(t_philo *philo, int n)
 void	ft_putnbr_buff_hq(t_philo *philo, int nbr)
 {
 	ft_putnbr_buff(philo, nbr);
+	ft_putchar_buff(philo, '\n');
+	philo->buff[philo->cursor] = '\0';
+	ft_putstr(philo->buff);
+	philo->cursor = 0;
+}
+
+void	print_action_buffer(t_philo *philo, t_a *a, char *str)
+{
+	ft_putnbr_buff(philo, get_time_ms(a));
+	ft_putstr_buff(philo, "ms ");
+	ft_putnbr_buff(philo, philo->id);
+	ft_putstr_buff(philo, str);
 	ft_putchar_buff(philo, '\n');
 	philo->buff[philo->cursor] = '\0';
 	ft_putstr(philo->buff);

@@ -1,9 +1,9 @@
 NAME	=	philo
 CC		=	clang
 OBJDIR	=	objects
-SRC		=	philosophers.c libft_0.c libft_1.c libft_2.c
+SRC		=	philosophers.c libft_0.c libft_1.c utils_0.c
 OBJ 	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
-CFLAGS	=	-Wall -Wextra -Werror -g3#-fsanitize=address#-fsanitize=thread
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address#-fsanitize=thread
 
 ifneq (,$(findstring xterm,${TERM}))
 	GREEN := $(shell tput -Txterm setaf 2)

@@ -15,6 +15,8 @@ typedef struct s_philo {
 	char	buff[100];
 	int		cursor;
 	void	*ptr;
+	int		last_eat;
+	int		cycles;
 }	t_philo;
 
 typedef struct s_a {
@@ -47,5 +49,11 @@ int		ft_strlen(const char *s);
 int		ft_putstr_ret_0(char *s);
 void	ft_putnbr_bn(int n);
 void	ft_putnbr_buff_hq(t_philo *philo, int nbr);
+
+
+
+void	print_action_buffer(t_philo *philo, t_a *a, char *str);
+int	get_time_ms(t_a *a);
+
 
 #endif

@@ -45,18 +45,18 @@ void	ft_putnbr_buff_hq(t_philo *philo, int nbr)
 
 void	print_action_buffer(t_philo *philo, t_a *a, char *str)
 {
-	pthread_mutex_lock(a->m_finished);
+	//pthread_mutex_lock(a->m_finished);
 	if (a->finished == 1 || a->all_alive == 0)
 		return ;
-	pthread_mutex_unlock(a->m_finished);
+	//pthread_mutex_unlock(a->m_finished);
 	ft_putnbr_buff(philo, get_time_ms(a));
 	ft_putstr_buff(philo, "ms ");
 	ft_putnbr_buff(philo, philo->id + 1);
 	ft_putstr_buff(philo, str);
 	ft_putchar_buff(philo, '\n');
 	philo->buff[philo->cursor] = '\0';
-	pthread_mutex_lock(a->m_write);
+	//pthread_mutex_lock(a->m_write);
 	ft_putstr(philo->buff);
-	pthread_mutex_unlock(a->m_write);
+	//pthread_mutex_unlock(a->m_write);
 	philo->cursor = 0;
 }

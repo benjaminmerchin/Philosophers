@@ -14,18 +14,18 @@ void	how_is_everyone_doing(t_a *a)
 		{
 			print_action_buffer(&(a->philo[i]), a, " is dead");
 			//usleep(300);
-			pthread_mutex_lock(a->m_finished);
+			//pthread_mutex_lock(a->m_finished);
 			a->all_alive = 0;
-			pthread_mutex_unlock(a->m_finished);
+			//pthread_mutex_unlock(a->m_finished);
 			return ;
 		}
 		i++;
 	}
 	if (a->finished == 1)
 	{
-		pthread_mutex_lock(a->m_finished);
+		//pthread_mutex_lock(a->m_finished);
 		a->all_alive = 0;
-		pthread_mutex_unlock(a->m_finished);
+		//pthread_mutex_unlock(a->m_finished);
 	}
 }
 
@@ -55,9 +55,9 @@ void	*philo_life(void *arg)
 		(philo->cycles)++;
 	}
 	//usleep(200);
-	pthread_mutex_lock(a->m_finished);
+	//pthread_mutex_lock(a->m_finished);
 	a->finished = 1;
-	pthread_mutex_unlock(a->m_finished);
+	//pthread_mutex_unlock(a->m_finished);
 	return (NULL);
 }
 
@@ -73,9 +73,9 @@ void	init_philo(t_a *a, int i)
 
 int	init_main(int ac, char **av, t_a *a, int *i)
 {
-	pthread_mutex_t		m_finished[1];
-	pthread_mutex_t		m_write[1];	
-	pthread_mutex_t		m_last_eat[1];	
+	// pthread_mutex_t		m_finished[1];
+	// pthread_mutex_t		m_write[1];	
+	// pthread_mutex_t		m_last_eat[1];	
 	
 	a->error = 0;
 	if (ac != 5 && ac != 6)
@@ -92,12 +92,12 @@ int	init_main(int ac, char **av, t_a *a, int *i)
 	a->all_alive = 1;
 	a->finished = 0;
 	*i = 0;
-	pthread_mutex_init(&m_finished[0], NULL);
-	pthread_mutex_init(&m_write[0], NULL);
-	pthread_mutex_init(&m_last_eat[0], NULL);
-	a->m_finished = &m_finished[0];
-	a->m_write = &m_write[0];
-	a->m_write = &m_last_eat[0];
+	// pthread_mutex_init(&m_finished[0], NULL);
+	// pthread_mutex_init(&m_write[0], NULL);
+	// pthread_mutex_init(&m_last_eat[0], NULL);
+	// a->m_finished = &m_finished[0];
+	// a->m_write = &m_write[0];
+	// a->m_write = &m_last_eat[0];
 	return (0);
 }
 

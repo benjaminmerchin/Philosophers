@@ -13,6 +13,7 @@ void	how_is_everyone_doing(t_a *a)
 		if (a->philo[i].last_eat + a->time_die < time)
 		{
 			print_action_buffer(&(a->philo[i]), a, " is dead");
+			//usleep(300);
 			pthread_mutex_lock(a->m_finished);
 			a->all_alive = 0;
 			pthread_mutex_unlock(a->m_finished);

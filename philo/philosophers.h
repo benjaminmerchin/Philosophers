@@ -17,6 +17,7 @@ typedef struct s_philo {
 	void	*ptr;
 	int		last_eat;
 	int		cycles;
+	int		finished;
 }	t_philo;
 
 typedef struct s_a {
@@ -36,6 +37,7 @@ typedef struct s_a {
 	t_philo philo[200];
 
 	int	counter;//retirer
+	int	finished;
 } t_a;
 
 // typedef struct s_tv {

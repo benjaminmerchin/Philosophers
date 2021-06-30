@@ -60,44 +60,6 @@ void	doing_something_for(t_a *a, int time_ms)
 	}
 }
 
-void	my_turn()
-{
-	while (1)
-	{
-		sleep (1);
-		printf("My turn\n");
-	}
-}
-
-void	*your_turn(void *arg)
-{
-	int *i = (int *)arg;
-	while (1)
-	{
-		sleep (1);
-		printf("Your turn %d\n", *i);
-		(*i)++;
-	}
-	return (NULL);
-}
-
-//int counter;
-//pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-//pthread_mutex_t lock;
-//pthread_mutex_init(&lock, NULL);
-
-/*void	*count_to_big(void *arg)
-{
-	(void)arg;
-	for (int i = 0; i < 200000; i++)
-	{
-		pthread_mutex_lock(&lock);
-		counter++;
-		pthread_mutex_unlock(&lock);
-	}
-	return (NULL);
-}*/
-
 void		how_is_everyone_doing(t_a *a)
 {
 	int i;
@@ -105,7 +67,7 @@ void		how_is_everyone_doing(t_a *a)
 
 	i = 0;
 	time = get_time_ms(a);
-	while (i < a->num_philo)
+	while (i < a->num_philo && a->finished == 0)
 	{
 		//usleep(100);
 		if (a->philo[i].last_eat + a->time_die < time)
@@ -121,7 +83,7 @@ void		how_is_everyone_doing(t_a *a)
 			exit (1);
 		}
 		i++;
-		(a->counter)++;
+		//(a->counter)++;
 	}
 }
 
@@ -156,6 +118,8 @@ void	*philo_life(void *arg)
 		print_action_buffer(philo, a, " is thinking");
 		(philo->cycles)++;
 	}
+	philo->finished = 1;
+	a->finished = 1;
 	//a->everyone_alive = 0;
 	return (NULL);
 }
@@ -171,7 +135,8 @@ int main(int ac, char **av)
 	secure_values(&a);
 	init_time(&a);
 	a.everyone_alive = 1;
-	a.counter = 0;//retirer
+	a.counter = 0; //a retirer
+	a.finished = 0;
 
 	pthread_t newthread[200];
 
@@ -190,6 +155,7 @@ int main(int ac, char **av)
 		a.philo[i].buff[0] = '\0';
 		a.philo[i].cursor = 0;
 		a.philo[i].id = i;
+		a.philo[i].finished = 0;
 		a.philo[i].last_eat = 0;
 		a.philo[i].ptr = &a;
 		a.philo[i].my_right_fork = &fork[i];
@@ -201,7 +167,7 @@ int main(int ac, char **av)
 		i++;
 	}
 
-	while (a.everyone_alive == 1)
+	while (a.everyone_alive == 1 && a.finished == 0)
 	{
 // Se balader sur tous les philo et verif qu'ils sont dans le time
 		how_is_everyone_doing(&a);
@@ -216,11 +182,5 @@ int main(int ac, char **av)
 		pthread_join(newthread[i], NULL);
 		i++;
 	}
-	//my_turn();
-
-
-	//ft_putnbr_bn(get_time_ms(&a));
-	//pthread_join(&newthread, NULL);
-	printf("%d\n", a.counter);
 	return (0);
 }

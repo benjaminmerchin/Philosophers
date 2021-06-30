@@ -7,15 +7,24 @@ void	how_is_everyone_doing(t_a *a)
 
 	i = 0;
 	time = get_time_ms(a);
+	//usleep(300);
 	while (i < a->num_philo && a->finished == 0)
 	{
 		if (a->philo[i].last_eat + a->time_die < time)
 		{
 			print_action_buffer(&(a->philo[i]), a, " is dead");
+			pthread_mutex_lock(a->m_finished);
 			a->all_alive = 0;
+			pthread_mutex_unlock(a->m_finished);
 			return ;
 		}
 		i++;
+	}
+	if (a->finished == 1)
+	{
+		pthread_mutex_lock(a->m_finished);
+		a->all_alive = 0;
+		pthread_mutex_unlock(a->m_finished);
 	}
 }
 
@@ -29,6 +38,7 @@ void	*philo_life(void *arg)
 	philo->cycles = 0;
 	while ((philo->cycles < a->num_eat || !a->limit_num_eat) && a->all_alive)
 	{
+		//usleep(300);
 		pthread_mutex_lock(philo->my_right_fork);
 		print_action_buffer(philo, a, " has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
@@ -43,7 +53,10 @@ void	*philo_life(void *arg)
 		print_action_buffer(philo, a, " is thinking");
 		(philo->cycles)++;
 	}
+	//usleep(200);
+	pthread_mutex_lock(a->m_finished);
 	a->finished = 1;
+	pthread_mutex_unlock(a->m_finished);
 	return (NULL);
 }
 
@@ -59,6 +72,10 @@ void	init_philo(t_a *a, int i)
 
 int	init_main(int ac, char **av, t_a *a, int *i)
 {
+	pthread_mutex_t		m_finished[1];
+	pthread_mutex_t		m_write[1];	
+	pthread_mutex_t		m_last_eat[1];	
+	
 	a->error = 0;
 	if (ac != 5 && ac != 6)
 	{
@@ -74,6 +91,12 @@ int	init_main(int ac, char **av, t_a *a, int *i)
 	a->all_alive = 1;
 	a->finished = 0;
 	*i = 0;
+	pthread_mutex_init(&m_finished[0], NULL);
+	pthread_mutex_init(&m_write[0], NULL);
+	pthread_mutex_init(&m_last_eat[0], NULL);
+	a->m_finished = &m_finished[0];
+	a->m_write = &m_write[0];
+	a->m_write = &m_last_eat[0];
 	return (0);
 }
 
@@ -89,6 +112,7 @@ int	main(int ac, char **av)
 	while (i < a.num_philo)
 		pthread_mutex_init(&fork[i++], NULL);
 	i = 0;
+	usleep(300);
 	while (i < a.num_philo)
 	{
 		init_philo(&a, i);

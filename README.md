@@ -64,7 +64,7 @@ NOTIONS
 
 <!--
 Feedback Correction
-enlever exit et mettre un return 
+enlever exit et mettre un return OK
 everyone alive a 0 au dessus du return OK
 
 philosophers ligne 30 check que tout le monde est alive OK
@@ -72,4 +72,11 @@ philosophers ligne 30 check que tout le monde est alive OK
 lancer les pairs, mettre du delais et ensuite les impaires OK
 
 les philos qui commencent a 1 (+ 1 dans l'affichage) OK
+-->
+
+<!--
+WARNING ThreadSanitizer
+proteger les last_eat de chaque philo avec mutex ou decalage
+proteger les all_alive
+
 -->

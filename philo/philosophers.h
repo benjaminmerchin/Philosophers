@@ -37,7 +37,7 @@ typedef struct s_a {
 	t_philo				philo[200];
 	pthread_mutex_t		*m_finished;
 	pthread_mutex_t		*m_write;
-	pthread_mutex_t		*m_last_eat;
+//	pthread_mutex_t		*m_last_eat;
 }	t_a;
 
 void	ft_putchar(char c);

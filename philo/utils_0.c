@@ -55,8 +55,8 @@ void	print_action_buffer(t_philo *philo, t_a *a, char *str)
 	ft_putstr_buff(philo, str);
 	ft_putchar_buff(philo, '\n');
 	philo->buff[philo->cursor] = '\0';
-	//pthread_mutex_lock(a->m_write);
+	pthread_mutex_lock(a->m_write);
 	ft_putstr(philo->buff);
-	//pthread_mutex_unlock(a->m_write);
+	pthread_mutex_unlock(a->m_write);
 	philo->cursor = 0;
 }

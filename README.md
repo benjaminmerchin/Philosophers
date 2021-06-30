@@ -76,7 +76,7 @@ les philos qui commencent a 1 (+ 1 dans l'affichage) OK
 
 <!--
 WARNING ThreadSanitizer
-proteger les last_eat de chaque philo avec mutex ou decalage
-proteger les all_alive
-
+proteger les last_eat de chaque philo avec mutex ou decalage c13 et c47
+all_alive c18 et c40
+finished c59 et u0_49
 -->

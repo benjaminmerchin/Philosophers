@@ -74,7 +74,7 @@ void	init_philo(t_a *a, int i)
 int	init_main(int ac, char **av, t_a *a, int *i)
 {
 	// pthread_mutex_t		m_finished[1];
-	// pthread_mutex_t		m_write[1];	
+	 pthread_mutex_t		m_write[1];	
 	// pthread_mutex_t		m_last_eat[1];	
 	
 	a->error = 0;
@@ -93,11 +93,11 @@ int	init_main(int ac, char **av, t_a *a, int *i)
 	a->finished = 0;
 	*i = 0;
 	// pthread_mutex_init(&m_finished[0], NULL);
-	// pthread_mutex_init(&m_write[0], NULL);
+	 pthread_mutex_init(&m_write[0], NULL);
 	// pthread_mutex_init(&m_last_eat[0], NULL);
 	// a->m_finished = &m_finished[0];
-	// a->m_write = &m_write[0];
-	// a->m_write = &m_last_eat[0];
+	 a->m_write = &m_write[0];
+	// a->m_last_eat = &m_last_eat[0];
 	return (0);
 }
 

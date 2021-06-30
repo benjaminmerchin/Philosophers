@@ -1,11 +1,12 @@
 #include "philosophers.h"
 
-void	how_is_everyone_doing(t_a *a)
+void	how_is_everyone_doing(t_a *a, int *j)
 {
 	int	i;
 	int	time;
 
 	i = 0;
+	*j = 0;
 	time = get_time_ms(a);
 	while (i < a->num_philo && a->finished == 0)
 	{
@@ -85,6 +86,7 @@ int	main(int ac, char **av)
 	i = -1;
 	while (++i < a.num_philo)
 	{
+		init_philo(&a, i);
 		a.philo[i].ptr = &a;
 		a.philo[i].my_right_fork = &fork[i];
 		if (i != a.num_philo - 1)
@@ -94,8 +96,7 @@ int	main(int ac, char **av)
 		pthread_create(&newthread[i], NULL, philo_life, &a.philo[i]);
 	}
 	while (a.everyone_alive == 1 && a.finished == 0)
-		how_is_everyone_doing(&a);
-	i = 0;
+		how_is_everyone_doing(&a, &i);
 	while (i < a.num_philo)
 		pthread_join(newthread[i++], NULL);
 	return (0);

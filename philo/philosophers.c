@@ -81,12 +81,12 @@ void	*your_turn(void *arg)
 	return (NULL);
 }
 
-int counter;
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+//int counter;
+//pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 //pthread_mutex_t lock;
 //pthread_mutex_init(&lock, NULL);
 
-void	*count_to_big(void *arg)
+/*void	*count_to_big(void *arg)
 {
 	(void)arg;
 	for (int i = 0; i < 200000; i++)
@@ -96,9 +96,9 @@ void	*count_to_big(void *arg)
 		pthread_mutex_unlock(&lock);
 	}
 	return (NULL);
-}
+}*/
 
-int		how_is_everyone_doing(t_a *a)
+void		how_is_everyone_doing(t_a *a)
 {
 	int i;
 	int	time;
@@ -107,11 +107,14 @@ int		how_is_everyone_doing(t_a *a)
 	time = get_time_ms(a);
 	while (i < a->num_philo)
 	{
-		if (a->philo[i]->last_eat < time + a->time_eat)
+		//usleep(100);
+		if (a->philo[i].last_eat + a->time_die < time)
 		{
-			a->everyone_alive = 0;
+			print_action_buffer(&(a->philo[i]), a, " is dead");
+			exit (1);
 		}
 		i++;
+		(a->counter)++;
 	}
 }
 
@@ -147,6 +150,7 @@ void	*philo_life(void *arg)
 		doing_something_for(a, a->time_sleep);
 		(philo->cycles)++;
 	}
+	//a->everyone_alive = 0;
 	return (NULL);
 }
 
@@ -161,6 +165,7 @@ int main(int ac, char **av)
 	secure_values(&a);
 	init_time(&a);
 	a.everyone_alive = 1;
+	a.counter = 0;//retirer
 
 	pthread_t newthread[200];
 
@@ -193,8 +198,8 @@ int main(int ac, char **av)
 	while (a.everyone_alive == 1)
 	{
 // Se balader sur tous les philo et verif qu'ils sont dans le time
-//		how_is_everyone_doing(&a);
-		a.everyone_alive = 0;
+		//how_is_everyone_doing(&a);
+		a.everyone_alive = 1;
 	}
 
 
@@ -210,6 +215,6 @@ int main(int ac, char **av)
 
 	//ft_putnbr_bn(get_time_ms(&a));
 	//pthread_join(&newthread, NULL);
-	//printf("%d\n", counter);
+	printf("%d\n", a.counter);
 	return (0);
 }

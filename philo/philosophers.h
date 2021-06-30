@@ -34,6 +34,8 @@ typedef struct s_a {
 	int	end;
 
 	t_philo philo[200];
+
+	int	counter;//retirer
 } t_a;
 
 // typedef struct s_tv {

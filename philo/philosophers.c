@@ -110,6 +110,13 @@ void		how_is_everyone_doing(t_a *a)
 		//usleep(100);
 		if (a->philo[i].last_eat + a->time_die < time)
 		{
+			ft_putnbr(a->philo[i].last_eat);
+			ft_putchar(' ');
+			ft_putnbr(a->time_die);
+			ft_putchar(' ');
+			ft_putnbr(time);
+			ft_putchar('\n');
+			
 			print_action_buffer(&(a->philo[i]), a, " is dead");
 			exit (1);
 		}
@@ -147,7 +154,6 @@ void	*philo_life(void *arg)
 		doing_something_for(a, a->time_sleep);
 
 		print_action_buffer(philo, a, " is thinking");
-		doing_something_for(a, a->time_sleep);
 		(philo->cycles)++;
 	}
 	//a->everyone_alive = 0;
@@ -198,8 +204,8 @@ int main(int ac, char **av)
 	while (a.everyone_alive == 1)
 	{
 // Se balader sur tous les philo et verif qu'ils sont dans le time
-		//how_is_everyone_doing(&a);
-		a.everyone_alive = 1;
+		how_is_everyone_doing(&a);
+		//a.everyone_alive = 1;
 	}
 
 

@@ -12,7 +12,6 @@ typedef struct s_philo {
 	int				id;
 	pthread_mutex_t	*my_right_fork;
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*eating;
 	char			buff[100];
 	int				cursor;
 	void			*ptr;
@@ -27,15 +26,16 @@ typedef struct s_a {
 	int					time_sleep;
 	int					num_eat;
 	int					limit_num_eat;
-	int					stop;
+	int					all_alive;
 
 	time_t				start_sec;
 	suseconds_t			start_usec;
 	long unsigned int	start_usec_ms;
 	int					error;
+	int					finished;
 
 	t_philo				philo[200];
-	pthread_mutex_t		m_stop;
+	pthread_mutex_t		*m_finished;
 	pthread_mutex_t		*m_write;
 //	pthread_mutex_t		*m_last_eat;
 }	t_a;
@@ -57,6 +57,5 @@ void	fill_struct(t_a *a, int ac, char **av);
 void	secure_values(t_a *a);
 int		get_time_ms(t_a *a);
 void	doing_something_for(t_a *a, int time_ms);
-void	printf_action_buffer(t_philo *philo, t_a *a, char *str);
 
 #endif

@@ -45,10 +45,13 @@ void	ft_putnbr_buff_hq(t_philo *philo, int nbr)
 
 void	print_action_buffer(t_philo *philo, t_a *a, char *str)
 {
-	//pthread_mutex_lock(a->m_finished);
-	if (a->finished == 1 || a->all_alive == 0)
+	int i;
+
+	pthread_mutex_lock(&a->m_stop);
+	i = a->stop;
+	pthread_mutex_unlock(&a->m_stop);
+	if (i == 1)
 		return ;
-	//pthread_mutex_unlock(a->m_finished);
 	ft_putnbr_buff(philo, get_time_ms(a));
 	ft_putstr_buff(philo, "ms ");
 	ft_putnbr_buff(philo, philo->id + 1);
@@ -59,4 +62,19 @@ void	print_action_buffer(t_philo *philo, t_a *a, char *str)
 	ft_putstr(philo->buff);
 	pthread_mutex_unlock(a->m_write);
 	philo->cursor = 0;
+}
+
+
+void	printf_action_buffer(t_philo *philo, t_a *a, char *str)
+{
+	int i;
+
+	pthread_mutex_lock(&a->m_stop);
+	i = a->stop;
+	pthread_mutex_unlock(&a->m_stop);
+	if (i == 1)
+		return ;
+	pthread_mutex_lock(a->m_write);
+	printf("%dms %d %s %d\n", get_time_ms(a), philo->id + 1, str, a->stop);
+	pthread_mutex_unlock(a->m_write);
 }

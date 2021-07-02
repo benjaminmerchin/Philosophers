@@ -70,37 +70,40 @@ void	*philo_life(void *arg)
 	return (NULL);
 }
 
-/*void	init_mutex(t_a *a)
+void	init_mutex(t_a *a)
 {
+	int				i;
+	pthread_mutex_t	fork[200];
+	pthread_mutex_t	m_eating[200];
 
-}*/
+	i = 0;
+	while (i < a->num_philo)
+	{
+		pthread_mutex_init(&fork[i], NULL);
+		pthread_mutex_init(&m_eating[i++], NULL);
+		a->philo[i].my_right_fork = &fork[i];
+		a->philo[i].eating = &m_eating[i];
+		if (i != a->num_philo - 1)
+			a->philo[i].left_fork = &fork[i + 1];
+		else
+			a->philo[i].left_fork = &fork[0];
+	}
+	usleep(300);
+}
 
 int	main(int ac, char **av)
 {
 	t_a				a;
 	int				i;
 	pthread_t		newthread[200];
-	pthread_mutex_t	fork[200];
-	pthread_mutex_t	m_eating[200];
 
 	if (init_main(ac, av, &a, &i) == 1)
 		return (0);
-	while (i < a.num_philo)
-	{
-		pthread_mutex_init(&fork[i], NULL);
-		pthread_mutex_init(&m_eating[i++], NULL);
-	}
+	init_mutex(&a);
 	i = 0;
-	usleep(300);
 	while (i < a.num_philo)
 	{
 		init_philo(&a, i);
-		a.philo[i].my_right_fork = &fork[i];
-		a.philo[i].eating = &m_eating[i];
-		if (i != a.num_philo - 1)
-			a.philo[i].left_fork = &fork[i + 1];
-		else
-			a.philo[i].left_fork = &fork[0];
 		pthread_create(&newthread[i], NULL, philo_life, &a.philo[i]);
 		i = i + 2;
 		if (i >= a.num_philo && i % 2 == 0)

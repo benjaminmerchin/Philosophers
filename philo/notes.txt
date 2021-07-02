@@ -1,5 +1,0 @@
-a->stop
-
-0 tout tourne
-1 un philo est mort, on arrete tout
-2 un thread c'est fini naturellement, on laisse finir les autres

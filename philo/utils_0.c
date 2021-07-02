@@ -1,62 +1,50 @@
 #include "philosophers.h"
 
-void	ft_putchar_buff(t_philo *philo, char c)
-{
-	philo->buff[philo->cursor] = c;
-	philo->cursor++;
-}
-
-void	ft_putstr_buff(t_philo *philo, char *str)
+void	printf_action_buffer(t_philo *philo, t_a *a, char *str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-		ft_putchar_buff(philo, str[i++]);
-}
-
-void	ft_putnbr_buff(t_philo *philo, int n)
-{
-	long	nbr;
-
-	nbr = n;
-	if (nbr < 0)
-	{
-		ft_putchar_buff(philo, '-');
-		nbr = -nbr;
-	}
-	if (nbr >= 10)
-	{
-		ft_putnbr_buff(philo, nbr / 10);
-		ft_putchar_buff(philo, nbr % 10 + '0');
-	}
-	else
-		ft_putchar_buff(philo, nbr + '0');
-}
-
-void	ft_putnbr_buff_hq(t_philo *philo, int nbr)
-{
-	ft_putnbr_buff(philo, nbr);
-	ft_putchar_buff(philo, '\n');
-	philo->buff[philo->cursor] = '\0';
-	ft_putstr(philo->buff);
-	philo->cursor = 0;
-}
-
-void	print_action_buffer(t_philo *philo, t_a *a, char *str)
-{
-	//pthread_mutex_lock(a->m_finished);
-	if (a->finished == 1 || a->all_alive == 0)
+	pthread_mutex_lock(&a->m_stop);
+	i = a->stop;
+	pthread_mutex_unlock(&a->m_stop);
+	if (i == 1)
 		return ;
-	//pthread_mutex_unlock(a->m_finished);
-	ft_putnbr_buff(philo, get_time_ms(a));
-	ft_putstr_buff(philo, "ms ");
-	ft_putnbr_buff(philo, philo->id + 1);
-	ft_putstr_buff(philo, str);
-	ft_putchar_buff(philo, '\n');
-	philo->buff[philo->cursor] = '\0';
 	pthread_mutex_lock(a->m_write);
-	ft_putstr(philo->buff);
+	printf("%dms %d %s %d\n", get_time_ms(a), philo->id + 1, str, a->stop);
 	pthread_mutex_unlock(a->m_write);
-	philo->cursor = 0;
+}
+
+void	init_philo(t_a *a, int i)
+{
+	a->philo[i].buff[0] = '\0';
+	a->philo[i].cursor = 0;
+	a->philo[i].id = i;
+	a->philo[i].last_eat = 0;
+	a->philo[i].ptr = (void *)a;
+}
+
+int	init_main(int ac, char **av, t_a *a, int *i)
+{
+	pthread_mutex_t	m_stop;
+	pthread_mutex_t	m_write[1];
+
+	a->error = 0;
+	if (ac != 5 && ac != 6)
+	{
+		ft_putstr("Error: wrong number of arguments\n");
+		a->error = 1;
+		return (1);
+	}
+	fill_struct(a, ac, av);
+	secure_values(a);
+	if (a->error == 1)
+		return (1);
+	init_time(a);
+	a->stop = 0;
+	*i = 0;
+	pthread_mutex_init(&m_stop, NULL);
+	pthread_mutex_init(&m_write[0], NULL);
+	a->m_stop = m_stop;
+	a->m_write = &m_write[0];
+	return (0);
 }

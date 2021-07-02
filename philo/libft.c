@@ -47,22 +47,3 @@ int	ft_atoi(const char *str)
 	}
 	return (nbr * sign);
 }
-
-void	ft_putnbr(int n)
-{
-	long	nbr;
-
-	nbr = n;
-	if (nbr < 0)
-	{
-		ft_putchar('-');
-		nbr = -nbr;
-	}
-	if (nbr >= 10)
-	{
-		ft_putnbr(nbr / 10);
-		ft_putchar(nbr % 10 + '0');
-	}
-	else
-		ft_putchar(nbr + '0');
-}

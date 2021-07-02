@@ -22,6 +22,7 @@ $(NAME): $(OBJ)
 	@echo "${GREEN}Compilation Done${RESET}"
 
 $(OBJDIR)/%.o: %.c
+	@mkdir -p objects
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

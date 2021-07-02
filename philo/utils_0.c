@@ -9,9 +9,9 @@ void	printf_action_buffer(t_philo *philo, t_a *a, char *str)
 	pthread_mutex_unlock(&a->m_stop);
 	if (i == 1)
 		return ;
-	pthread_mutex_lock(a->m_write);
-	printf("%dms %d %s\n", get_time_ms(a), philo->id + 1, str);
-	pthread_mutex_unlock(a->m_write);
+	pthread_mutex_lock(&a->m_write);
+	printf("%dms %d %s %d\n", get_time_ms(a), philo->id + 1, str, a->stop);
+	pthread_mutex_unlock(&a->m_write);
 }
 
 void	init_philo(t_a *a, int i)
@@ -26,7 +26,7 @@ void	init_philo(t_a *a, int i)
 int	init_main(int ac, char **av, t_a *a)
 {
 	pthread_mutex_t	m_stop;
-	pthread_mutex_t	m_write[1];
+	pthread_mutex_t	m_write;
 
 	a->error = 0;
 	if (ac != 5 && ac != 6)
@@ -42,8 +42,8 @@ int	init_main(int ac, char **av, t_a *a)
 	init_time(a);
 	a->stop = 0;
 	pthread_mutex_init(&m_stop, NULL);
-	pthread_mutex_init(&m_write[0], NULL);
+	pthread_mutex_init(&m_write, NULL);
 	a->m_stop = m_stop;
-	a->m_write = &m_write[0];
+	a->m_write = m_write;
 	return (0);
 }

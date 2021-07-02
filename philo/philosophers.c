@@ -15,9 +15,9 @@ void	how_is_everyone_doing(t_a *a)
 		pthread_mutex_unlock(a->philo[i].eating);
 		if (last_eat + a->time_die < time)
 		{
-			pthread_mutex_lock(a->m_write);
+			pthread_mutex_lock(&a->m_write);
 			printf("%dms %d %s\n", get_time_ms(a), i + 1, "id dead");
-			pthread_mutex_unlock(a->m_write);
+			pthread_mutex_unlock(&a->m_write);
 			pthread_mutex_lock(&a->m_stop);
 			if (a->stop == 2)
 				a->stop = 3;
@@ -32,19 +32,19 @@ void	how_is_everyone_doing(t_a *a)
 void	one_day_of_life(t_a *a, t_philo *philo, int *j)
 {
 	pthread_mutex_lock(philo->my_right_fork);
-	printf_action_buffer(philo, a, "has taken a fork");
+	printf_action_buffer(philo, a, " has taken a fork");
 	pthread_mutex_lock(philo->left_fork);
-	printf_action_buffer(philo, a, "has taken a fork");
+	printf_action_buffer(philo, a, " has taken a fork");
 	pthread_mutex_lock(philo->eating);
 	philo->last_eat = get_time_ms(a);
 	pthread_mutex_unlock(philo->eating);
-	printf_action_buffer(philo, a, "is eating");
+	printf_action_buffer(philo, a, " is eating");
 	doing_something_for(a, a->time_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->my_right_fork);
-	printf_action_buffer(philo, a, "is sleeping");
+	printf_action_buffer(philo, a, " is sleeping");
 	doing_something_for(a, a->time_sleep);
-	printf_action_buffer(philo, a, "is thinking");
+	printf_action_buffer(philo, a, " is thinking");
 	(philo->cycles)++;
 	pthread_mutex_lock(&a->m_stop);
 	*j = a->stop;

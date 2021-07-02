@@ -3,7 +3,7 @@ CC		=	clang
 OBJDIR	=	objects
 SRC		=	philosophers.c libft.c utils_0.c utils_1.c
 OBJ 	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
-CFLAGS	=	-Wall -Wextra -Werror -pthread -g3#-fsanitize=thread#-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -pthread -g3#-fsanitize=address#-fsanitize=thread#
 
 ifneq (,$(findstring xterm,${TERM}))
 	GREEN := $(shell tput -Txterm setaf 2)

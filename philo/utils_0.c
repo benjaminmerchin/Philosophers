@@ -23,7 +23,7 @@ void	init_philo(t_a *a, int i)
 	a->philo[i].ptr = (void *)a;
 }
 
-int	init_main(int ac, char **av, t_a *a, int *i)
+int	init_main(int ac, char **av, t_a *a)
 {
 	pthread_mutex_t	m_stop;
 	pthread_mutex_t	m_write[1];
@@ -41,7 +41,6 @@ int	init_main(int ac, char **av, t_a *a, int *i)
 		return (1);
 	init_time(a);
 	a->stop = 0;
-	*i = 0;
 	pthread_mutex_init(&m_stop, NULL);
 	pthread_mutex_init(&m_write[0], NULL);
 	a->m_stop = m_stop;

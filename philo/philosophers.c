@@ -80,13 +80,14 @@ void	init_mutex(t_a *a)
 	while (i < a->num_philo)
 	{
 		pthread_mutex_init(&fork[i], NULL);
-		pthread_mutex_init(&m_eating[i++], NULL);
+		pthread_mutex_init(&m_eating[i], NULL);
 		a->philo[i].my_right_fork = &fork[i];
 		a->philo[i].eating = &m_eating[i];
 		if (i != a->num_philo - 1)
 			a->philo[i].left_fork = &fork[i + 1];
 		else
 			a->philo[i].left_fork = &fork[0];
+		i++;
 	}
 	usleep(300);
 }
@@ -97,7 +98,7 @@ int	main(int ac, char **av)
 	int				i;
 	pthread_t		newthread[200];
 
-	if (init_main(ac, av, &a, &i) == 1)
+	if (init_main(ac, av, &a) == 1)
 		return (0);
 	init_mutex(&a);
 	i = 0;

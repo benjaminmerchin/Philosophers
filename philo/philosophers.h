@@ -52,6 +52,6 @@ void	secure_values(t_a *a);
 int		get_time_ms(t_a *a);
 void	doing_something_for(t_a *a, int time_ms);
 void	printf_action_buffer(t_philo *philo, t_a *a, char *str);
-int		init_main(int ac, char **av, t_a *a, int *i);
+int		init_main(int ac, char **av, t_a *a);
 
 #endif

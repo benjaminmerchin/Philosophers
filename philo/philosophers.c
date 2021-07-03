@@ -89,7 +89,6 @@ void	init_mutex(t_a *a)
 			a->philo[i].left_fork = &fork[0];
 		i++;
 	}
-	usleep(300);
 }
 
 int	main(int ac, char **av)

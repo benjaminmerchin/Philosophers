@@ -13,8 +13,6 @@ typedef struct s_philo {
 	pthread_mutex_t	*my_right_fork;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*eating;
-	char			buff[100];
-	int				cursor;
 	void			*ptr;
 	int				last_eat;
 	int				cycles;

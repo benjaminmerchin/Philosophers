@@ -10,14 +10,12 @@ void	printf_action_buffer(t_philo *philo, t_a *a, char *str)
 	if (i == 1)
 		return ;
 	pthread_mutex_lock(&a->m_write);
-	printf("%dms %d %s %d\n", get_time_ms(a), philo->id + 1, str, a->stop);
+	printf("%dms %d %s\n", get_time_ms(a), philo->id + 1, str);
 	pthread_mutex_unlock(&a->m_write);
 }
 
 void	init_philo(t_a *a, int i)
 {
-	a->philo[i].buff[0] = '\0';
-	a->philo[i].cursor = 0;
 	a->philo[i].id = i;
 	a->philo[i].last_eat = 0;
 	a->philo[i].ptr = (void *)a;

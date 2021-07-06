@@ -35,10 +35,10 @@ void	secure_values(t_a *a)
 		ft_putstr("Error: Danger: too many philosophers\n");
 		a->error = 1;
 	}
-	if (a->num_philo < 0 || a->time_die < 0
+	if (a->num_philo < 1 || a->time_die < 1
 		|| a->time_eat < 0 || a->time_sleep < 0 || a->num_eat < 0)
 	{
-		ft_putstr("Error: Negative value\n");
+		ft_putstr("Error: Wrong value\n");
 		a->error = 1;
 	}
 }

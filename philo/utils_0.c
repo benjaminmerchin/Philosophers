@@ -43,5 +43,15 @@ int	init_main(int ac, char **av, t_a *a)
 	pthread_mutex_init(&m_write, NULL);
 	a->m_stop = m_stop;
 	a->m_write = m_write;
+	if (a->num_philo == 1)
+		return (there_is_one_philo(a));
 	return (0);
+}
+
+int	there_is_one_philo(t_a *a)
+{
+	printf("%dms %d %s\n", get_time_ms(a), 1, "has taken a fork");
+	doing_something_for(a, a->time_die);
+	printf("%dms %d %s\n", get_time_ms(a), 1, "id dead");
+	return (1);
 }

@@ -16,7 +16,7 @@ void	how_is_everyone_doing(t_a *a)
 		if (last_eat + a->time_die < time)
 		{
 			pthread_mutex_lock(&a->m_write);
-			printf("%dms %d %s\n", get_time_ms(a), i + 1, "id dead");
+			printf("%dms %d %s\n", get_time_ms(a), i + 1, "is dead");
 			pthread_mutex_unlock(&a->m_write);
 			pthread_mutex_lock(&a->m_stop);
 			if (a->stop == 2)

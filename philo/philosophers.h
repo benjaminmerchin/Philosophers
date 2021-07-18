@@ -26,9 +26,6 @@ typedef struct s_a {
 	int					num_eat;
 	int					limit_num_eat;
 	int					stop;
-
-	time_t				start_sec;
-	suseconds_t			start_usec;
 	long unsigned int	start_usec_ms;
 	int					error;
 
@@ -37,10 +34,7 @@ typedef struct s_a {
 	pthread_mutex_t		m_write;
 }	t_a;
 
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
 int		ft_atoi(const char *str);
-int		ft_strlen(const char *s);
 int		get_time_ms(t_a *a);
 
 void	init_time(t_a *a);

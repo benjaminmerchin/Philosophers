@@ -5,9 +5,7 @@ void	init_time(t_a *a)
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	a->start_sec = t.tv_sec;
-	a->start_usec = t.tv_usec;
-	a->start_usec_ms = a->start_sec * 1000 + a->start_usec / 1000;
+	a->start_usec_ms = t.tv_sec * 1000 + t.tv_usec / 1000;
 }
 
 void	fill_struct(t_a *a, int ac, char **av)
@@ -32,13 +30,13 @@ void	secure_values(t_a *a)
 {
 	if (a->num_philo > 200)
 	{
-		ft_putstr("Error: Danger: too many philosophers\n");
+		printf("Error: Danger: too many philosophers\n");
 		a->error = 1;
 	}
 	if (a->num_philo < 1 || a->time_die < 1
 		|| a->time_eat < 0 || a->time_sleep < 0 || a->num_eat < 0)
 	{
-		ft_putstr("Error: Wrong value\n");
+		printf("Error: Wrong value\n");
 		a->error = 1;
 	}
 }

@@ -29,7 +29,7 @@ int	init_main(int ac, char **av, t_a *a)
 	a->error = 0;
 	if (ac != 5 && ac != 6)
 	{
-		ft_putstr("Error: wrong number of arguments\n");
+		printf("Error: wrong number of arguments\n");
 		a->error = 1;
 		return (1);
 	}
@@ -54,4 +54,32 @@ int	there_is_one_philo(t_a *a)
 	doing_something_for(a, a->time_die);
 	printf("%dms %d %s\n", get_time_ms(a), 1, "id dead");
 	return (1);
+}
+
+int	ft_atoi(const char *str)
+{
+	int		i;
+	int		sign;
+	long	nbr;
+
+	i = 0;
+	nbr = 0;
+	sign = 1;
+	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (sign == 1 && nbr > 922337203685477580)
+			return (-1);
+		else if (nbr > 922337203685477580)
+			return (0);
+		nbr = nbr * 10 + str[i++] - '0';
+	}
+	return (nbr * sign);
 }

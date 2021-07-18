@@ -1,7 +1,7 @@
 NAME	=	philo
 CC		=	clang
 OBJDIR	=	objects
-SRC		=	philosophers.c libft.c utils_0.c utils_1.c
+SRC		=	philosophers.c utils_0.c utils_1.c
 OBJ 	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 CFLAGS	=	-Wall -Wextra -Werror -pthread#-g3 -fsanitize=thread
 

@@ -30,7 +30,7 @@ le reste en 0.001, soit un facteur 1000
   
 THREAD  
 pthread_create // cree le thread  
-pthread_join // attends poliment que le thread finisse et peut retourner un ptr de valeur exit du de la fonction du thread  
+pthread_join // attends poliment que le thread finisse et peut retourner un ptr de valeur exit de la fonction du thread  
 pthread_detach // askip ne sert pas  
   
 Des Mutex pour temporiser les thread  

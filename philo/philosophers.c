@@ -19,8 +19,6 @@ void	how_is_everyone_doing(t_a *a)
 			printf("%dms %d %s\n", get_time_ms(a), i + 1, "is dead");
 			pthread_mutex_unlock(&a->m_write);
 			pthread_mutex_lock(&a->m_stop);
-			if (a->stop == 2)
-				a->stop = 3;
 			if (a->stop == 0)
 				a->stop = 1;
 			pthread_mutex_unlock(&a->m_stop);
